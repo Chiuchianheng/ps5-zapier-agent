@@ -281,6 +281,50 @@ My agent card | Due Date Reminder | finished 17 Oct 2026, 2:11 PM
 4. It must never: Send a reminder to anyone except me; the "To" field is typed as my own address and not taken from the event's guests.
 5. Where a person checks: I read each reminder when it arrives and check the deadline against eLearn once a day.
   </pre>
+</section><section style="max-width:900px;margin:40px auto;padding:24px;font-family:sans-serif;line-height:1.6;">
+
+  <h2>My agent on our map</h2>
+  <div style="display:grid;grid-template-columns:120px 1fr 1fr;gap:8px;font-size:14px;">
+    <div></div>
+    <div style="text-align:center;font-weight:bold;">Work with a right answer</div>
+    <div style="text-align:center;font-weight:bold;">Work with no single right answer</div>
+    <div style="font-weight:bold;align-self:center;">Must do together</div>
+    <div style="background:#f8eef7;padding:16px;border-radius:8px;">A person leads, AI inside</div>
+    <div style="background:#eef3f8;padding:16px;border-radius:8px;">Agents run it, a person judges</div>
+    <div style="font-weight:bold;align-self:center;">Either can do alone</div>
+    <div style="background:#eef3f8;padding:16px;border-radius:8px;border:3px solid #2a7;">AI alone, with checks<br><strong>★ My agent: Due Date Reminder (CCH)</strong></div>
+    <div style="background:#f8eef7;padding:16px;border-radius:8px;">A person decides, AI alongside</div>
+  </div>
+
+  <h2>Step 2 · Runs and checks</h2>
+  <p><img src="calendar.png" style="max-width:100%;"><br><em>My Assignments calendar with all test events.</em></p>
+  <p><img src="run1.png" style="max-width:100%;"><br><em>Run 1 (2:27 PM): the "Due: ... Test 1" reminder was sent and matched in Zap history.</em></p>
+  <p><img src="run2.png" style="max-width:100%;"><br><em>Run 2 (3:01 PM): the "Due: ... Test 2" reminder was sent and matched in Zap history.</em></p>
+  <p><img src="run3.png" style="max-width:100%;"><br><em>Run 3 (4:00 PM): the "Due: ... Test 3" reminder was sent and matched in Zap history.</em></p>
+
+  <h3>Tricky case</h3>
+  <p><strong>Prediction (written before the test):</strong> An assignment event titled "MGMT6110 Problem Set 5 Test1", without the word "Due", in my Assignments calendar. I expect the agent to send a reminder about 60 minutes before, because it is still an assignment deadline.</p>
+  <p><img src="tricky-before.png" style="max-width:100%;"><br><em>Before the fix (2:40 PM): the event without "Due" reached its reminder time, but Zap history shows no new run.</em></p>
+  <p><strong>Result:</strong> No reminder arrived. The agent missed the deadline because its trigger only searched for "Due" in the title.</p>
+  <p><img src="fix-before.png" style="max-width:100%;"><br><em>Before the fix: the Search Term was "Due", so only events with "Due" in the title got a reminder.</em></p>
+  <p><img src="fix.png" style="max-width:100%;"><br><em>The fix: I removed "Due" from the Search Term, so every event in my Assignments calendar gets a reminder.</em></p>
+  <p><img src="tricky-after.png" style="max-width:100%;"><br><em>Rerun after the fix (3:15 PM): a new event without "Due", "MGMT6110 Problem Set 5 Test 2-1", now gets a reminder.</em></p>
+
+  <h2>Step 3 · Q1</h2>
+  <p><strong>(a)</strong> I think my Due Date Reminder is in AI alone, with checks (bottom left).</p>
+  <p><strong>(b)</strong> First, this job has a right answer. A reminder is either for the right assignment at the right time, or it is not. In my three runs, the subject and the time in Zap history matched the events in my calendar, so I could easily check if each one was correct. My tricky case was also clearly wrong, because the event without "Due" got no reminder at all. Second, either of us can do this job alone. The agent sent every reminder without me doing anything, and I can also do it myself by checking eLearn.</p>
+  <p><strong>(c)</strong> So my job as the person in the loop is to check once a day. I look at my reminders and Zap history and compare them with eLearn, to make sure no deadline is missing and the times are right. The agent can send reminders to me by itself, because if one reminder is wrong, it is not a big problem and I will notice. But if the agent did more, it would move. If it decided which assignment is more important, there is no single right answer, so it would move to the right. If it submitted my work or emailed my professor for me, I would want to check before it sends, so it would move up to "A person leads, AI inside".</p>
+  <p><strong>(d)</strong> I mostly agree with my group, but I would move "Finance · Pre-market brief". My group put it in "A person decides, AI alongside", but I think it has a right answer. A pre-market brief mostly collects prices, news and numbers from last night, and a number is either correct or wrong. It is a lot like my reminder agent: AI can do it alone and a person just checks the numbers. So I would put it in "AI alone, with checks". I would only move it back to the right if the brief also told a trader what to buy or sell, because that is a judgement call.</p>
+
+  <h2>Collaboration log</h2>
+  <p><strong>What I delegated to AI:</strong> I delegated the reminders to my Zapier agent. It watches my Assignments calendar and emails me 60 minutes before each deadline, with no person involved in each run.</p>
+  <p><strong>What I checked and how:</strong> For every run, I opened Zap history and compared the subject and time with my calendar event and the email I got.</p>
+  <p><strong>One AI error I caught:</strong> My agent missed a deadline. An event called "MGMT6110 Problem Set 5 Test1" did not have "Due" in its title, so the agent sent no reminder, and Zap history showed no run. I found this by checking Zap history. I first added "Due" as a filter so the agent would only remind me about deadlines, but it was too strict. To fix it, I removed "Due" from the Search Term, because my Assignments calendar only has deadlines, so every event in it should get a reminder. Then I tested again with a new event, "MGMT6110 Problem Set 5 Test 2-1", and this time it got a reminder.</p>
+  <p><strong>Time and cost:</strong> About 3 hours on 17 October. It cost US$0, I only used free apps and added no card. My Zapier account was on a free Pro trial, so it checked every 2 minutes instead of 15.</p>
+
+  <h2>Reflection</h2>
+  <p>My agent fits this job well, because a deadline reminder has a clear right answer and is easy to check. It failed when my event title did not have "Due", so it missed a deadline that was still in my Assignments calendar. Next time I would just use the Assignments calendar as the filter from the start, and I would still check eLearn every day.</p>
+
 </section>
 </body>
 </html>
